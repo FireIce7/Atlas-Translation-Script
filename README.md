@@ -1,80 +1,68 @@
 # Atlas Text Translator
 
-**Atlas Text Translator** is a minimal Python utility that reads an English `.txt` file (one phrase per line) from an `input/` folder and generates translated `.txt` files—one per target language—in an `output/` folder. You can add or remove languages simply by editing a single dictionary in the script.
+A lightweight Python script that translates an English text file into multiple languages. Provide one `.txt` file inside `input/` and the script will create one translated file per language inside `output/`.
 
-## 📂 Project Structure
+## Project structure
 
+```
 your_project/
 ├── main.py
-├── input/ # Put exactly ONE .txt file here (English phrases)
-│ └── phrases.txt
-└── output/ # Translated files will appear here
-├── Atlas_German.txt
-├── Atlas_Portugues.txt
-└── Atlas_French.txt
+├── input/
+│   └── your_phrases.txt     # one phrase per line, English
+└── output/                  # created automatically
+```
 
+## Requirements
 
-## ⚙️ Requirements
+- Python 3.10+
+- `deep-translator` library
 
-- Python 3.6+
-- **deep-translator** library
+The project uses [uv](https://github.com/astral-sh/uv) to manage dependencies, but you can install them with `pip` as well.
 
-Install via UV:
+## Running
 
-```bash
-uv run main.py 
-# Dependencies will be automatically installed.
+1. Place exactly one `.txt` file with your English phrases inside `input/`.
+2. From the project root, run:
 
-🚀 How It Works
-Input
-Place a single .txt file with English phrases (one per line) into input/.
-
-Run
-From your project root, execute:
-
-bash
-Copiar
-Editar
+```
 uv run python main.py
-The script will:
+```
 
-Detect the one .txt file in input/
+The first run will install dependencies and start the script. Each translated file will be named `Atlas_<Language>.txt` and saved in `output/`.
 
-Read each non-empty line
+## Customizing Languages
 
-Translate into every language defined in the languages dict
+Open `main.py` and edit the `languages` dictionary:
 
-Write one Atlas_<Language>.txt file per target language into output/
-
-Output
-Check output/ for your translated files.
-
-✅ Adding or Removing Languages
-Open main.py and locate the languages dictionary:
-
-python
-Copiar
-Editar
-languages = {
-    'German': 'de',
-    'Portugues': 'pt',
-    'French': 'fr'
-}
-Add a language: add an entry 'YourLangName': 'xx', where xx is the ISO 639-1 code.
-
-Remove a language: delete its entry.
-
-Example—adding Spanish and Italian:
-
-python
-Copiar
-Editar
+```python
 languages = {
     'German': 'de',
     'Portugues': 'pt',
     'French': 'fr',
-    'Spanish': 'es',
-    'Italian': 'it'
 }
-Save and rerun main.py. New Atlas_Spanish.txt and Atlas_Italian.txt will appear in output/.
+```
 
+The key is the name that will appear in the output filename; the value is the ISO 639‑1 language code used for translation. Add or remove entries as needed.
+
+## Example
+
+With the default settings and an input file containing:
+
+```
+Hello
+How are you?
+```
+
+the script will produce:
+
+```
+output/Atlas_German.txt
+output/Atlas_Portugues.txt
+output/Atlas_French.txt
+```
+
+Each file contains the translated lines in the respective language.
+
+---
+
+This tool is intended for small batches of phrases. It uses the public Google Translate service through `deep-translator`, so be mindful of usage limits.
