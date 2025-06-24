@@ -4,7 +4,7 @@ A lightweight Python script that translates an English text file into multiple l
 
 ## Project structure
 
-```
+```bash
 your_project/
 ├── main.py
 ├── input/
